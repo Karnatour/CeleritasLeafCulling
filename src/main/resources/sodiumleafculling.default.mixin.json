@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "toni.sodiumleafculling.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "target": "@env(DEFAULT)",
+  "client": [
+    "BlockLeavesMixin"
+  ],
+  "mixins": [],
+  "server": [],
+  "setSourceFile": true,
+  "minVersion": "0.8.7"
+}
