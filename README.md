@@ -21,5 +21,5 @@ In Twilight Forest on Solid option FPS went from **540** to **640** with 32RD
 
 ### Special Thanks
 
-- **Txni** – for the original SodiumDynamicLights
+- **Txni** – for the original SodiumLeafCulling
 - **Embeddedt** – for creating Celeritas and thus giving me the motivation to make this port
