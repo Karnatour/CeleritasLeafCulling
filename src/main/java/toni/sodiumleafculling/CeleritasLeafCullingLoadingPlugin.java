@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class SodiumLeafCullingLoadingPlugin implements IFMLLoadingPlugin {
+public class CeleritasLeafCullingLoadingPlugin implements IFMLLoadingPlugin {
     @Override
     public @Nullable String[] getASMTransformerClass() {
         return new String[0];

@@ -1,0 +1,8 @@
+#PARSE_ESCAPES
+sodiumleafculling.options.leaf_culling.page=Leaf Culling
+sodiumleafculling.options.leaf_culling.mode=Leaf Culling Mode
+sodiumleafculling.options.leaf_culling.none=NONE
+sodiumleafculling.options.leaf_culling.hollow=HOLLOW
+sodiumleafculling.options.leaf_culling.solid_aggressive=SOLID AGGRESIVE
+sodiumleafculling.options.leaf_culling.solid=SOLID
+sodiumleafculling.options.leaf_culling.mode.desc=- %s disables leaf culling.\n- %s behaves like Optifine's smart option. Gives best performance, looks worst out of all options.\n- %s replaces leaves that are fully surrounded horizontally (north, south, east, west) but ignores vertical neighbors. Better performance than Solid but looks worse.\n- %s replaces leaves fully surrounded on all six sides (up, down, north, south, east, west) with a solid block. Looks best out of all options.

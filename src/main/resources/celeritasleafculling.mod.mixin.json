@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "toni.sodiumleafculling.mixins.mod",
-  "plugin": "toni.sodiumleafculling.SodiumLeafCullingMixinConfigPlugin",
+  "plugin": "toni.sodiumleafculling.CeleritasLeafCullingMixinConfigPlugin",
   "compatibilityLevel": "JAVA_8",
   "target": "@env(MOD)",
   "client": [

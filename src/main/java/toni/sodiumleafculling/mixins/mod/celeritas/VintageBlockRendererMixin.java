@@ -24,7 +24,7 @@ import toni.sodiumleafculling.config.LeafCullingConfig;
 
 import java.util.List;
 
-@Mixin(value = VintageBlockRenderer.class, remap = false, priority = 100)
+@Mixin(value = VintageBlockRenderer.class, remap = false)
 public abstract class VintageBlockRendererMixin {
     @Shadow
     private IBlockState currentState;

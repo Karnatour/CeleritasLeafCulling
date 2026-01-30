@@ -1,9 +1,0 @@
-﻿{
-  "sodiumleafculling.options.leaf_culling.name": "Leaf Culling Mode",
-  "sodiumleafculling.options.leaf_culling.tooltip": "If enabled, leaves behind other leaves will be culled to improve performance. Hollow will aggressively cull faces, and Solid mode will enable fast solid block rendering of leaves behind other leaves.",
-  "options.leaf_culling.none": "None",
-  "options.leaf_culling.hollow": "Hollow, behaves like Optifine's smart option",
-  "options.leaf_culling.solid": "Solid, replaces leaves fully surrounded on all six sides (up, down, north, south, east, west) with a solid block.",
-  "options.leaf_culling.solid_aggressive": "Solid Aggressive, replaces leaves that are fully surrounded horizontally (north, south, east, west) but ignores vertical neighbors. Maximizes performance, may reduce visual fidelity for leaves above or below open space."
-
-}

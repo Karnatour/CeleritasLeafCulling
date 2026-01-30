@@ -13,8 +13,7 @@ import toni.sodiumleafculling.LeafCulling;
 import toni.sodiumleafculling.LeafCullingMode;
 import toni.sodiumleafculling.config.LeafCullingConfig;
 
-
-@Mixin(value = BlockLeaves.class, priority = 100)
+@Mixin(value = BlockLeaves.class)
 public class BlockLeavesMixin {
 
     @Inject(
@@ -23,31 +22,21 @@ public class BlockLeavesMixin {
             cancellable = true
     )
     private void inject$shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos selfPos, EnumFacing facing, CallbackInfoReturnable<Boolean> cir) {
-         if (blockState.getBlock() instanceof BlockLeaves) {
-             if (LeafCullingConfig.cullingMode == LeafCullingMode.HOLLOW) {
-                 if (LeafCulling.shouldCullSide(blockAccess, selfPos, facing, 2)) {
-                     cir.setReturnValue(false);
-                     return;
-                 }
-             }
+        if (LeafCullingConfig.cullingMode == LeafCullingMode.HOLLOW) {
+            if (LeafCulling.shouldCullSide(blockAccess, selfPos, facing, 2)) {
+                cir.setReturnValue(false);
+                return;
+            }
+        }
 
-             if (LeafCullingConfig.cullingMode == LeafCullingMode.SOLID || LeafCullingConfig.cullingMode == LeafCullingMode.SOLID_AGGRESSIVE) {
-                 boolean cullSelf = LeafCulling.surroundedByLeaves(blockAccess, selfPos);
+        if (LeafCullingConfig.cullingMode == LeafCullingMode.SOLID || LeafCullingConfig.cullingMode == LeafCullingMode.SOLID_AGGRESSIVE) {
+            BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
+            neighborPos.setPos(selfPos).move(facing);
 
-                 BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
-                 neighborPos.setPos(selfPos).move(facing);
-                 boolean cullOther = LeafCulling.surroundedByLeaves(blockAccess, neighborPos);
-                 if (cullSelf) {
-                     if (cullOther) {
-                         cir.setReturnValue(false);
-                         return;
-                     }
-                 } else {
-                     if (cullOther) {
-                         cir.setReturnValue(false);
-                     }
-                 }
-             }
-         }
+            if (LeafCulling.surroundedByLeaves(blockAccess, neighborPos)) {
+                cir.setReturnValue(false);
+                return;
+            }
+        }
     }
 }
