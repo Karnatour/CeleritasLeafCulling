@@ -1,0 +1,8 @@
+#PARSE_ESCAPES
+sodiumleafculling.options.leaf_culling.page=Отсечение листьев
+sodiumleafculling.options.leaf_culling.mode=Режим отсечения листьев
+sodiumleafculling.options.leaf_culling.none=ВЫКЛ
+sodiumleafculling.options.leaf_culling.hollow=ПОЛНЫЙ
+sodiumleafculling.options.leaf_culling.solid_aggressive=СПЛОШНОЙ АГРЕССИВНЫЙ
+sodiumleafculling.options.leaf_culling.solid=СПЛОШНОЙ
+sodiumleafculling.options.leaf_culling.mode.desc=- %s отключает отсечение листьев.\n- %s ведёт себя как «умная» опция в Optifine. Даёт лучшую производительность, выглядит хуже всех вариантов.\n- %s заменяет листья, полностью окружённые по горизонтали (север, юг, восток, запад), но игнорирует вертикальных соседей. Лучшая производительность, чем у «Сплошного», но выглядит хуже.\n- %s заменяет листья, полностью окружённые со всех шести сторон (верх, низ, север, юг, восток, запад), сплошным блоком. Выглядит лучше всех вариантов.
