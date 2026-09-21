@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "target": "@env(MOD)",
   "client": [
-    "celeritas.VintageBlockRendererMixin"
+    "celeritas.VintageBlockRendererMixin",
+    "actinium.VintageBlockRendererMixin"
   ],
   "mixins": [],
   "server": [],

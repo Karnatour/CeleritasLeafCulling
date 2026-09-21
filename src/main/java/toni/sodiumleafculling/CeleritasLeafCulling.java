@@ -7,11 +7,11 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.taumc.celeritas.api.OptionGUIConstructionEvent;
+import toni.sodiumleafculling.config.ActiniumOptionsListener;
 import toni.sodiumleafculling.config.CeleritasOptionsListener;
 import toni.sodiumleafculling.config.ConfigEventHandler;
 
-@Mod(modid = toni.sodiumleafculling.celeritasleafculling.Reference.MOD_ID, name = toni.sodiumleafculling.celeritasleafculling.Reference.MOD_NAME, version = toni.sodiumleafculling.celeritasleafculling.Reference.VERSION, clientSideOnly = true, acceptableRemoteVersions = "*", dependencies = "required-after-client:celeritas@[2.4.0,)")
+@Mod(modid = toni.sodiumleafculling.celeritasleafculling.Reference.MOD_ID, name = toni.sodiumleafculling.celeritasleafculling.Reference.MOD_NAME, version = toni.sodiumleafculling.celeritasleafculling.Reference.VERSION, clientSideOnly = true, acceptableRemoteVersions = "*")
 public class CeleritasLeafCulling
 {
     public static final Logger LOGGER = LogManager.getLogger(toni.sodiumleafculling.celeritasleafculling.Reference.MOD_NAME);
@@ -21,7 +21,7 @@ public class CeleritasLeafCulling
         if (Loader.isModLoaded("celeritas")) {
             try {
                 Class.forName("org.taumc.celeritas.api.OptionGUIConstructionEvent");
-                OptionGUIConstructionEvent.BUS.addListener(CeleritasOptionsListener::onCeleritasOptionsConstruct);
+                org.taumc.celeritas.api.OptionGUIConstructionEvent.BUS.addListener(CeleritasOptionsListener::onCeleritasOptionsConstruct);
                 LOGGER.info("Celeritas detected, setting fastBlockRenderer property to true");
                 System.setProperty("celeritas.useVintageFastBlockRenderer", "true");
             } catch (Throwable t) {
@@ -29,6 +29,20 @@ public class CeleritasLeafCulling
                     LOGGER.error("Celeritas version is too old use 2.4.0 or newer");
                 } else {
                     LOGGER.error("Unable to check if Celeritas is up-to-date", t);
+                }
+            }
+        }
+        if (Loader.isModLoaded("actinium")) {
+            try {
+                Class.forName("org.embeddedt.embeddium.api.OptionGUIConstructionEvent");
+                org.embeddedt.embeddium.api.OptionGUIConstructionEvent.BUS.addListener(ActiniumOptionsListener::onActiniumOptionsConstruct);
+                LOGGER.info("Actinium Celeritas detected, setting fastBlockRenderer property to true");
+                System.setProperty("celeritas.useVintageFastBlockRenderer", "true");
+            } catch (Throwable t) {
+                if (t instanceof NoClassDefFoundError) {
+                    LOGGER.error("Actinium celeritas version is too old use 2.4.0 or newer");
+                } else {
+                    LOGGER.error("Unable to check if Actinium Celeritas is up-to-date", t);
                 }
             }
         }

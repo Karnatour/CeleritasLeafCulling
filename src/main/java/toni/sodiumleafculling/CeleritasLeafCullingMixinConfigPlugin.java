@@ -30,6 +30,7 @@ public class CeleritasLeafCullingMixinConfigPlugin implements IMixinConfigPlugin
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         return switch (mixinClassName.split("\\.")[4]) {
             case "celeritas" -> Loader.isModLoaded("celeritas");
+            case "actinium" -> Loader.isModLoaded("actinium");
             default -> true;
         };
     }
