@@ -54,4 +54,33 @@ public class CeleritasLeafCulling
             MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
         }
     }
+
+    private static Boolean irisPresent = null;
+
+    public static boolean isShaderPackInUse() {
+        if (irisPresent == null) {
+            irisPresent = detectIris();
+        }
+        return irisPresent && IrisHolder.isShaderPackInUse();
+    }
+
+    private static boolean detectIris() {
+        try {
+            ClassLoader cl = CeleritasLeafCulling.class.getClassLoader();
+            Class.forName("net.irisshaders.iris.api.v0.IrisApi", false, cl);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private static final class IrisHolder {
+        static boolean isShaderPackInUse() {
+            try {
+                return net.irisshaders.iris.api.v0.IrisApi.getInstance().isShaderPackInUse();
+            } catch (Throwable t) {
+                return false;
+            }
+        }
+    }
 }

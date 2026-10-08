@@ -24,6 +24,8 @@ import toni.sodiumleafculling.config.LeafCullingConfig;
 
 import java.util.List;
 
+import static toni.sodiumleafculling.CeleritasLeafCulling.isShaderPackInUse;
+
 @Mixin(value = VintageBlockRenderer.class, remap = false)
 public abstract class VintageBlockRendererMixin {
     @Shadow
@@ -46,7 +48,7 @@ public abstract class VintageBlockRendererMixin {
                                          EnumFacing cullFace, LightPipeline lighter, IBlockColor colorProvider, Vec3d offset, List<BakedQuad> quads) {
         if (currentState.getBlock() instanceof BlockLeaves) {
             boolean isSolid = LeafCullingConfig.cullingMode == LeafCullingMode.SOLID || LeafCullingConfig.cullingMode == LeafCullingMode.SOLID_AGGRESSIVE;
-            if (LeafCulling.surroundedByLeaves(currentBlockAccess, pos) && isSolid) {
+            if (LeafCulling.surroundedByLeaves(currentBlockAccess, pos) && isSolid && !isShaderPackInUse()) {
                 Material solidMaterial = buffers.getRenderPassConfiguration().getMaterialForRenderType(BlockRenderLayer.SOLID);
                 ChunkModelBuilder solidBuffer = buffers.get(solidMaterial);
                 this.renderQuadList(solidBuffer, buffers, solidMaterial, pos, cullFace, lighter, colorProvider, offset, quads);
