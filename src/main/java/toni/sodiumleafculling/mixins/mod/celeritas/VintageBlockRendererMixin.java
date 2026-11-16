@@ -46,14 +46,36 @@ public abstract class VintageBlockRendererMixin {
                     target = "Lorg/taumc/celeritas/impl/render/terrain/compile/pipeline/VintageBlockRenderer;renderQuadList(Lorg/embeddedt/embeddium/impl/render/chunk/compile/buffers/ChunkModelBuilder;Lorg/embeddedt/embeddium/impl/render/chunk/compile/ChunkBuildBuffers;Lorg/embeddedt/embeddium/impl/render/chunk/terrain/material/Material;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/EnumFacing;Lorg/embeddedt/embeddium/impl/model/light/LightPipeline;Lnet/minecraft/client/renderer/color/IBlockColor;Lnet/minecraft/util/math/Vec3d;Ljava/util/List;)V"
             )
     )
-    private void redirect$renderQuadList(VintageBlockRenderer instance, ChunkModelBuilder defaultBuffer, ChunkBuildBuffers buffers, Material material, BlockPos pos,
+    private void renderBlock$renderQuadList(VintageBlockRenderer instance, ChunkModelBuilder defaultBuffer, ChunkBuildBuffers buffers, Material material, BlockPos pos,
                                          EnumFacing cullFace, LightPipeline lighter, IBlockColor colorProvider, Vec3d offset, List<BakedQuad> quads) {
         if (currentState.getBlock() instanceof BlockLeaves) {
             boolean isSolid = LeafCullingConfig.cullingMode == LeafCullingMode.SOLID || LeafCullingConfig.cullingMode == LeafCullingMode.SOLID_AGGRESSIVE;
             if (LeafCulling.surroundedByLeaves(currentBlockAccess, pos) && isSolid && !isShaderPackInUse()) {
                 Material solidMaterial = buffers.getRenderPassConfiguration().getMaterialForRenderType(BlockRenderLayer.SOLID);
                 ChunkModelBuilder solidBuffer = buffers.get(solidMaterial);
+                this.renderQuadList(solidBuffer, buffers, solidMaterial, pos, cullFace, lighter, colorProvider, offset, quads);
 
+                return;
+            }
+        }
+
+        this.renderQuadList(defaultBuffer, buffers, material, pos, cullFace, lighter, colorProvider, offset, quads);
+    }
+
+    @Redirect(
+            method = "renderModel",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/taumc/celeritas/impl/render/terrain/compile/pipeline/VintageBlockRenderer;renderQuadList(Lorg/embeddedt/embeddium/impl/render/chunk/compile/buffers/ChunkModelBuilder;Lorg/embeddedt/embeddium/impl/render/chunk/compile/ChunkBuildBuffers;Lorg/embeddedt/embeddium/impl/render/chunk/terrain/material/Material;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/EnumFacing;Lorg/embeddedt/embeddium/impl/model/light/LightPipeline;Lnet/minecraft/client/renderer/color/IBlockColor;Lnet/minecraft/util/math/Vec3d;Ljava/util/List;)V"
+            )
+    )
+    private void renderModel$renderQuadList(VintageBlockRenderer instance, ChunkModelBuilder defaultBuffer, ChunkBuildBuffers buffers, Material material, BlockPos pos,
+                                         EnumFacing cullFace, LightPipeline lighter, IBlockColor colorProvider, Vec3d offset, List<BakedQuad> quads) {
+        if (currentState.getBlock() instanceof BlockLeaves) {
+            boolean isSolid = LeafCullingConfig.cullingMode == LeafCullingMode.SOLID || LeafCullingConfig.cullingMode == LeafCullingMode.SOLID_AGGRESSIVE;
+            if (LeafCulling.surroundedByLeaves(currentBlockAccess, pos) && isSolid && !isShaderPackInUse()) {
+                Material solidMaterial = buffers.getRenderPassConfiguration().getMaterialForRenderType(BlockRenderLayer.SOLID);
+                ChunkModelBuilder solidBuffer = buffers.get(solidMaterial);
                 this.renderQuadList(solidBuffer, buffers, solidMaterial, pos, cullFace, lighter, colorProvider, offset, quads);
 
                 return;
